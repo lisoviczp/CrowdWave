@@ -1,0 +1,10 @@
+<h1>Users#show</h1>
+<p>Find me in app/views/users/show.html.erb</p>
+
+<p>
+  <% @user.posts.each do |post| %>
+    <p> Author: <%= post.author %>: <br>
+    <%= post.body %> <br>
+    Agrees: <%= post.upvotes %> Disagrees: <%= post.downvotes %> </p>
+  <% end %>
+</p>

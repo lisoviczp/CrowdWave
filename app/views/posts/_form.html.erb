@@ -1,0 +1,17 @@
+<%= simple_form_for @post do |f| %>
+  <div class="input-group"> 
+    <%= f.input :body %>
+  </div> <br>
+
+  <div class="input-group">
+    <%= f.input :author %>
+  </div> <br>
+
+
+  <div class="input-group">
+    <%= f.association :user %>
+  </div> <br>
+
+
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

@@ -1,0 +1,24 @@
+<h1>This is where we should put all the Posts</h1>
+
+<h3>
+<%= link_to "New Post", posts_new_path(@post) %>
+</h3>
+<hr>
+
+
+
+<p>
+<% @post.each do |post| %>
+  <%= post.author %>: 
+  <%= post.body %> <br>
+  Upvotes: <%= post.upvotes %> </br>
+  Downvotes: <%= post.downvotes %> </br> 
+  <%= button_to "Upvote It!" %>
+  <%= link_to "Edit Post", edit_post_path(@post, :id => post.id) %> |
+  <%= link_to "View Post and Comments", posts_show_path(@post, :id => post.id) %> |
+  <%= link_to 'Delete', post_path(@post, :id => post.id), method: :delete %><br>
+  <hr>
+  </br>
+<% end %>
+
+</p>
