@@ -1,0 +1,47 @@
+<h1> <%= @sport.name %> </h1>
+
+<h3>
+  <% if user_signed_in? %>
+    <div class="newpost"> <%= link_to "New Post", posts_new_path(@post) %> </div>
+  <% end %>
+</h3>
+
+
+<h4>
+<% Team.all.each do |team| %>
+  <% if team.sport == @sport %>
+      <%= link_to "#{team.team_name}", team_path(team.id) if team.team_name %> &nbsp | &nbsp
+  <% end %> 
+<% end %>
+</h4>
+
+<hr>
+
+
+<p> 
+<% Post.all.reverse.each do |post| %>
+  <% if post.sport == @sport %>
+       <div class="username"> 
+          <%= link_to "#{post.user.username}", user_path(post.user) if post.user %> <!-- post.user.username-->
+          <% if post.sport %>
+            | <%= link_to "#{post.sport.name}", sport_path(post.sport) %> 
+          <% end %> <% if post.team %>
+            | <%= link_to "#{post.team.team_name}", team_path(post.team) %> 
+          <% end %> </div>    
+      <div class="body"> <%= post.body if post.body %> </div>
+      <div class="timestamp"> <%= post.updated_at %> </div>
+      Upvotes: <%= post.upvotes %> &nbsp &nbsp &nbsp
+      Downvotes: <%= post.downvotes %> </br> 
+      <%= link_to "Upvote It!", upvote_path(post_id: post.id), class: 'btn btn-primary' %>
+      <%= link_to "Downvote It!", downvote_path(post_id: post.id), class: 'btn btn-primary' %> <br>
+      <%= link_to "View Post and Comments", posts_show_path(@post, :id => post.id) %>
+
+      <% if post.user == current_user %>
+        | <%= link_to "Edit Post", edit_post_path(@post, :id => post.id) %> |
+        <%= link_to 'Delete', post_path(@post, :id => post.id), method: :delete %><br>
+      <% end %>
+      <hr>
+      <br>
+  <% end %>
+<% end %>
+</p>

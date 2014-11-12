@@ -41,7 +41,7 @@ gem 'spring',        group: :development
 
 
 gem 'simple_form'
-
+gem 'devise'
 
 group :development do 
   # Use sqlite3 as the database for Active Record

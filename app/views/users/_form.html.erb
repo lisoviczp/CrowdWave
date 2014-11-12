@@ -1,0 +1,9 @@
+<%= simple_form_for @user do |f| %>
+  <%= f.input :username, label_method: :username %> <br>
+  <%= f.input :email, label_method: :email %> <br>
+
+
+  <%= f.submit class: 'btn btn-primary' %>
+  
+<% end %>
+

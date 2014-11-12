@@ -1,7 +1,19 @@
 <h1> Show The <%= params[:id] %>th Post </h1>
 
 <p> 
- Author: <%= @post.author %> <br>
- <%= @post.body %> <br>
- Author 2: <%= @post.user_id %>
+ <div class="username"> 
+    <%= link_to "#{@post.user.username}", user_path(@post.user) if @post.user %> <!-- post.user.username-->
+    <% if @post.sport %>
+      | <%= link_to "#{@post.sport.name}", sport_path(@post.sport) if @post.sport %> 
+    <% end %> <% if @post.team %>
+      | <%= link_to "#{@post.team.team_name}", team_path(@post.team) if @post.team %> 
+    <% end %> </div>
+ <div class="body"> <%= @post.body %> </div>
+ <div class="timestamp"> <%= @post.updated_at %> </div>
+ Upvotes: <%= @post.upvotes %> &nbsp &nbsp &nbsp
+ Downvotes: <%= @post.downvotes %> </br> 
+  <% if @post.user == current_user %>
+  <%= link_to "Edit Post", edit_post_path(@post, :id => @post.id) %> |
+  <%= link_to 'Delete', post_path(@post, :id => @post.id), method: :delete %><br>
+<% end %>
 </p>

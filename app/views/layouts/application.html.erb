@@ -1,14 +1,143 @@
 <!DOCTYPE html>
 <html>
+
+<style>
+
+h1 {
+  text-align: center;
+}
+
+
+body {
+  background-color: #00b6e3;
+}
+
+.body {
+  font-family: helvetica;
+  font-size: 24px;
+  font-weight: 100;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.tag {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.newpost {
+  font-size: 20px;
+  position: fixed;
+  top: 9%;
+  right: 15%;
+}
+
+.timestamp {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.navbar-default {
+  position: fixed;
+}
+
+li ul li {
+  display: none;
+}
+
+li:hover ul li {
+  display: block;
+  font-size: 14px;
+}
+
+li ul li {
+  display: none;
+}
+
+li:hover ul li {
+  display: block;
+  font-size: 14px;
+}
+
+ul li ul li {
+  display: none;
+}
+
+ul li ul li {
+  display: none;
+  font-size: 40px;
+}
+
+</style>
+
+
 <head>
-  <title>CrowdTest1</title>
+  <title>CrowdWave</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
-<%= yield %>
+<div class="container">
+
+  <!-- Static navbar -->
+  <div class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to 'Home', root_path, class: 'navbar-brand' %>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><%= link_to 'NFL', sport_path(1) %></li>
+          <li class="active"><%= link_to 'NBA', sport_path(2)  %></li>
+          <li class="active"><%= link_to 'MLB', sport_path(3)  %></li>
+        </ul>
+
+        <div class="navbar-text navbar-right">
+         <% if user_signed_in? %> 
+            <%= link_to 'Profile', user_path(current_user) %> &nbsp | &nbsp
+            <%= link_to 'Edit Account', edit_user_path(current_user) %>  &nbsp | &nbsp
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to 'Sign In', new_user_session_path %>
+          <% end %>
+        </div>
+<!--         <li class="navbar-text navbar-right">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+        <ul class="dropdown-toggle" role="menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>  
+        </ul>
+      </li> -->
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </div>
+
+  <%- if notice %>
+    <div class="alert alert-info"><%= notice %></div>
+  <%- end %>
+  <%- if alert %>
+    <div class="alert alert-warning"><%= alert %></div>
+  <%- end %>
+
+  <%= yield %>
+  <br>
+
+</div> <!-- /container -->
 
 </body>
 </html>

@@ -1,10 +1,35 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1> <%= User.find(params[:id]).username %></h1>
+
+<h2>
+  <% if user_signed_in? %>
+    <div class="newpost"><%= link_to "New Post", posts_new_path(@post) %> </div>
+  <% end %>
+</h2>
 
 <p>
-  <% @user.posts.each do |post| %>
-    <p> Author: <%= post.author %>: <br>
-    <%= post.body %> <br>
-    Agrees: <%= post.upvotes %> Disagrees: <%= post.downvotes %> </p>
+  <% @user.posts.reverse.each do |post| %>
+  <div class="username"> 
+    <%= link_to "#{post.user.username}", user_path(post.user) if post.user %> <!-- post.user.username-->
+    | <%= link_to "#{post.sport.name}", sport_path(post.sport) if post.sport %> 
+    | <%= link_to "#{post.team.team_name}", team_path(post.team) if post.team %> </div>
+  <div class="body"> <%= post.body if post.body %> </div>
+  <div class="timestamp"> <%= post.updated_at %> </div>
+  Upvotes: <%= post.upvotes %> &nbsp &nbsp &nbsp
+  Downvotes: <%= post.downvotes %> </br> 
+   <%= link_to "Upvote It!", upvote_path(post_id: post.id), class: 'btn btn-primary' %>
+  <%= link_to "Downvote It!", downvote_path(post_id: post.id), class: 'btn btn-primary' %> <br>
+  
+  <%= link_to "View Post and Comments", posts_show_path(@post, :id => post.id) %>
+  <% if post.user == current_user %>
+    | <%= link_to "Edit Post", edit_post_path(@post, :id => post.id) %> |
+    <%= link_to 'Delete', post_path(@post, :id => post.id), method: :delete %><br>
   <% end %>
+  <hr>
+  </br>
+
+
+
+  <% end %>
+
+
 </p>

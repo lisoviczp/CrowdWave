@@ -1,17 +1,29 @@
 class Post < ActiveRecord::Base
   belongs_to :user
+  belongs_to :sport
+  belongs_to :team
+
+  # before_save :set_votes #setting attributes when making a new
   
-  def increase_upvotes
+  def upvote
     self.upvotes += 1
   end 
 
-  def increase_downvotes
+  def downvote
     self.downvotes +=1
   end
 
-  def total_votes
+  def total
     self.upvotes + self.downvotes
   end
+
+private
+
+  # def set_votes
+  #   self.upvotes = 0
+  #   self.downvotes = 0
+  # end
+
 
 
 end

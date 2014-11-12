@@ -3,13 +3,17 @@
     <%= f.input :body %>
   </div> <br>
 
-  <div class="input-group">
-    <%= f.input :author %>
+  <div class="input-group"> 
+    <%= f.association :sport, label_method: :name, prompt: "Select Sport" %>
+  </div> <br>
+
+  <div class="input-group"> 
+    <%= f.association :team, label_method: :team_name, prompt: "Select Team" %>
   </div> <br>
 
 
   <div class="input-group">
-    <%= f.association :user %>
+    <% @post.user_id = current_user.id %>
   </div> <br>
 
 

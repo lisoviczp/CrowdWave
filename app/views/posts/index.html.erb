@@ -1,24 +1,44 @@
-<h1>This is where we should put all the Posts</h1>
+
+<h1>Most Recent Posts</h1>
 
 <h3>
-<%= link_to "New Post", posts_new_path(@post) %>
+  <% if user_signed_in? %>
+    <div class="newpost"> <%= link_to "New Post", posts_new_path(@post) %> </div>
+  <% end %>
 </h3>
 <hr>
 
 
 
 <p>
-<% @post.each do |post| %>
-  <%= post.author %>: 
-  <%= post.body %> <br>
-  Upvotes: <%= post.upvotes %> </br>
+<% @post.reverse.each do |post| %>
+  <div class="username"> 
+    <%= link_to "#{post.user.username}", user_path(post.user) if post.user %> <!-- post.user.username-->
+    <% if post.sport %>
+      | <%= link_to "#{post.sport.name}", sport_path(post.sport) if post.sport %> 
+    <% end %> <% if post.team %>
+      | <%= link_to "#{post.team.team_name}", team_path(post.team) if post.team %> 
+    <% end %> </div>
+  <div class="body"> <%= post.body if post.body %> </div>
+  <div class="timestamp"> <%= post.updated_at %> </div>
+  Upvotes: <%= post.upvotes %> &nbsp &nbsp &nbsp
   Downvotes: <%= post.downvotes %> </br> 
-  <%= button_to "Upvote It!" %>
-  <%= link_to "Edit Post", edit_post_path(@post, :id => post.id) %> |
-  <%= link_to "View Post and Comments", posts_show_path(@post, :id => post.id) %> |
-  <%= link_to 'Delete', post_path(@post, :id => post.id), method: :delete %><br>
+
+  <%= link_to "Upvote It!", upvote_path(post_id: post.id), class: 'btn btn-primary' %>
+  <%= link_to "Downvote It!", downvote_path(post_id: post.id), class: 'btn btn-primary' %> <br>
+
+
+
+  <%= link_to "View Post and Comments", posts_show_path(@post, :id => post.id) %>
+  <% if post.user == current_user %>
+    | <%= link_to "Edit Post", edit_post_path(@post, :id => post.id) %> |
+    <%= link_to 'Delete', post_path(@post, :id => post.id), method: :delete %><br>
+  <% end %>
   <hr>
   </br>
 <% end %>
 
 </p>
+
+
+</html>
