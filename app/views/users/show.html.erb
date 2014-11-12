@@ -27,9 +27,24 @@
   <hr>
   </br>
 
+<h1> Favorites </h1>
 
+<hr>
 
+  <% @user.favorite_posts.each do |favorite| %>
+    <div class="username">
+      <%= favorite.user.username %> </div>
+    <div class="body">
+      <%= favorite.body %> </div>
+    <div class="timestamp"> <%= post.updated_at %> </div>
+      Upvotes: <%= post.upvotes %> &nbsp &nbsp &nbsp
+      Downvotes: <%= post.downvotes %> </br> 
+    <% if user_signed_in? %>
+      <%= link_to "Upvote It!", upvote_path(post_id: post.id), class: 'btn btn-primary' %>
+      <%= link_to "Downvote It!", downvote_path(post_id: post.id), class: 'btn btn-primary' %> <br>
+    <% end %>
   <% end %>
+<% end %>
 
 
 </p>

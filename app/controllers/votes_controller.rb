@@ -3,8 +3,7 @@ class VotesController < ApplicationController
     post = Post.find(params[:post_id])
     post.upvote
     post.save
-    # user = current_user
-    # user.add_upvote(post)
+    current_user.favorite_posts << post
     redirect_to root_path
   end
 

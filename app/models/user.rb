@@ -3,7 +3,10 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  
   has_many :posts
+  has_many :favorites
+  has_many :favorite_posts, through: :favorites, source: :post
 
   # @upvotes_list = []
   # @downvotes_list = []

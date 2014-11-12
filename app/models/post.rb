@@ -1,7 +1,11 @@
 class Post < ActiveRecord::Base
-  belongs_to :user
+  # belongs_to :user
   belongs_to :sport
   belongs_to :team
+
+  belongs_to :user
+  has_many :favorites
+  has_many :user_favorites, through: :favorites, source: :user
 
   # before_save :set_votes #setting attributes when making a new
   
